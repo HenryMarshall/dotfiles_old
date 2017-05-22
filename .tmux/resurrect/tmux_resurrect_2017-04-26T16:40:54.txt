@@ -1,0 +1,3 @@
+pane	deep	1	:bash	1	:*	1	:/home/henry	1	bash	:
+window	deep	1	1	:*	d2fd,185x49,0,0,0
+state	deep	

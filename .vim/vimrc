@@ -1,0 +1,77 @@
+set nocompatible
+set hidden
+
+filetype off
+set modelines=0                     " Prevents security exploits using modelines
+set encoding=utf-8
+set visualbell
+set updatetime=250
+
+set mouse=a
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'VundleVim/Vundle.vim'
+
+Plugin 'chriskempson/base16-vim'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'tpope/vim-repeat'
+
+" Syntax
+Plugin 'pangloss/vim-javascript'
+Plugin 'othree/javascript-libraries-syntax.vim'
+Plugin 'mxw/vim-jsx'
+Plugin 'elzr/vim-json'
+Plugin 'digitaltoad/vim-pug'
+Plugin 'mustache/vim-mustache-handlebars'
+Plugin 'ElmCast/elm-vim'
+Plugin 'nelstrom/vim-markdown-folding'
+
+" ### Navigation ###
+Plugin 'justinmk/vim-sneak'
+Plugin 'vim-scripts/argtextobj.vim' " Arguments as text object (`a`)
+Plugin 'tpope/vim-unimpaired'       " Adds many bindings using []
+Plugin 'mileszs/ack.vim'            " Uses 'ag'
+Plugin 'moll/vim-node'              " Follow `require('./foo')` paths
+
+" Less Typing
+Plugin 'cohama/lexima.vim'          " Autoclose braces
+Plugin 'mattn/emmet-vim'            " Autowrite html
+Plugin 'tpope/vim-commentary'       " Comment and uncomment
+Plugin 'tpope/vim-surround'         " Surrount object with braces or tags
+Plugin 'SirVer/ultisnips'           " Snippets
+Plugin 'AndrewRadev/switch.vim'     " Cycle values
+
+" Neocomplete conflicts with lexima -- reenable when resolved
+"Plugin 'Shougo/neocomplete.vim'    " Dumb autocompletion
+"Plugin 'Valloric/YouCompleteMe'    " Smart but heavy autocompletion
+
+" ### System Integration ###
+Plugin 'scrooloose/nerdtree'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'scrooloose/syntastic'       " linting
+Plugin 'tpope/vim-obsession'        " tmux resurrect integration
+Plugin 'geekjuice/vim-mocha'
+
+call vundle#end()
+filetype plugin indent on
+
+
+
+" Learn VimScript the Hard Way
+augroup filetype_markdown
+  autocmd!
+  autocmd FileType markdown setlocal spell
+  autocmd FileType markdown onoremap in :<c-u>execute "normal! /[^\s@]@\w+\.w+\r
+augroup END
+
+augroup filetype_html
+  autocmd!
+  autocmd FileType html nnoremap <buffer> <localleader>f Vatzf
+augroup END
+
+" Set location for swapfiles
+:set directory=$HOME/.vim/swapfiles

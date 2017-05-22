@@ -1,0 +1,350 @@
+# i3 config file (v5)
+#
+# Please see http://i3wm.org/docs/userguide.html for a complete reference!
+
+# Mod4 == Super_L
+set $mod Mod4
+
+# Mod1 == Alt_L
+set $alt Mod1
+
+###### INITIALIZATION ######
+# Launch redshift
+# exec ~/.config/redshift/redshift_ghetto4k.sh
+
+# Launch mindfulness clock
+# exec ~/proj/mindful_prompt/hooks/i3/initialize.sh
+
+# Launch deluge
+# exec deluged 2> $HOME/.config/deluge/torrent_add_failure.log
+
+# launch network manager applet
+#exec --no-startup-id nm-applet
+exec --no-startup-id $HOME/.pia_manager/pia_manager/run.sh
+
+# According to the Xresources page, it seems it is the display managers job to 
+# load the file. i3 seems not to be doing it by default.
+# https://wiki.archlinux.org/index.php/X_resources
+exec xrdb ~/.Xresources
+
+# create a terminal named scratchKonsole and send to the scratchpad
+# exec konsole -name scratch_term; [instance="scratch_term"] move scratchpad
+
+###### NON-WM HOTKEYS ######
+bindsym XF86AudioRaiseVolume exec "amixer -D pulse set Master 5%+"
+bindsym XF86AudioLowerVolume exec "amixer -D pulse set Master 5%-"
+bindsym XF86AudioMute exec "amixer -D pulse set Master toggle"
+
+###### LAUNCH/KILL CLIENTS ######
+
+# kill focused client
+bindsym $mod+Shift+Delete kill
+bindsym $mod+$alt+Delete kill; workspace prev_on_output
+
+# start k4-dmenu-desktop (a better program launcher)
+bindsym $mod+BackSpace exec --no-startup-id j4-dmenu-desktop --dmenu="dmenu -i -l 20"
+
+# launch mapper
+# bindsym $mod+F2 exec --no-startup-id konsole -T "Mapper" --command="python ~/.i3/bin/i3_mapper.py"
+#for_window [instance="konsole" title="Mapper"] floating enable
+
+###### CLIENT FOCUS ######
+
+# change focus
+bindsym $mod+a focus left
+bindsym $mod+r focus up
+bindsym $mod+s focus down
+bindsym $mod+t focus right
+
+# focus the parent container
+bindsym $mod+p focus parent
+
+# focus the child container
+# bindcode $mod+b focus child
+
+# disables mouse move to active output
+mouse_warping none
+
+
+###### CLIENT ARRANGEMENT ######
+
+# move focused window
+bindsym $mod+Shift+a move left
+bindsym $mod+Shift+r move up
+bindsym $mod+Shift+s move down
+bindsym $mod+Shift+t move right
+
+# change container layout (horizontal, vertical stacked, tabbed, default)
+bindsym $mod+shift+Q split h
+bindsym $mod+shift+W split v
+bindsym $mod+shift+F layout stacking
+bindsym $mod+shift+P layout tabbed
+bindsym $mod+shift+G layout default
+
+workspace_layout tabbed
+
+
+###### CLIENT MANIPULATION ######
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# toggle tiling / floating
+bindsym $mod+w floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+f focus mode_toggle
+
+# enter fullscreen mode for the focused container
+bindsym $mod+g fullscreen
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+    # These bindings trigger as soon as you enter the resize mode
+
+    # Respectively: shrink h; shrink v; grow v; grow h
+    bindsym a resize shrink width 3 px or 3 ppt
+    bindsym r resize shrink height 3 px or 3 ppt
+    bindsym s resize grow height 3 px or 3 ppt
+    bindsym t resize grow width 3 px or 3 ppt
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+b mode "resize"
+
+
+###### SCRATCHPAD ######
+
+# Move focused cliend to scratchpad
+bindsym $mod+F2 move scratchpad
+
+# Retrieve next scratchpad window
+bindsym $mod+F3 scratchpad show
+
+
+
+###### SCREENS ######
+
+# 20140712 - quad head
+
+# must use xinerama for unknown reasons. my nvidia drivers 331.20 should support
+# randr, but benefits are minimal as this machine will never hot-swap displays
+# force_xinerama yes
+
+# stored in variables to ease switching to randr
+# displays are DVI-I-2; DVI-I-3; DVI-I-1; VGA-0 respectively
+set $screen0 HDMI-0
+set $screen1 DVI-D-0
+set $screen2 DP-4
+
+# move WORKSPACES to screens
+bindsym $mod+z move workspace to output $screen0
+bindsym $mod+x move workspace to output $screen1
+bindsym $mod+c move workspace to output $screen2
+
+# move CLIENTS to screens
+bindsym $mod+shift+Z move container to output $screen0
+bindsym $mod+shift+X move container to output $screen1
+bindsym $mod+shift+C move container to output $screen2
+
+# for moving specific workspaces to specific screens see: workspaces
+
+
+###### WORKSPACES ######
+
+# focus adjacent workspace on screen
+bindsym $mod+Shift+Tab workspace prev_on_output
+bindsym $mod+Tab workspace next_on_output
+
+# variables useful for launching clients
+set $spawn_if_workspace_empty /home/henry/.config/i3/bin/spawn_if_workspace_empty.py
+
+set $mail_sites 'google-chrome --new-window https://inbox.google.com/u/0/ https://inbox.google.com/u/1/ hangouts.google.com'
+set $shop_sites 'google-chrome --new-window deals.kinja.com'
+
+# Set XDG_CURRENT_DESKTOP to get dark theme/icons
+set $dolphin 'XDG_CURRENT_DESKTOP=KDE dolphin'
+set $ksysguard 'XDG_CURRENT_DESKTOP=KDE ksysguard'
+set $okular 'XDG_CURRENT_DESKTOP=KDE okular'
+set $vlc 'XDG_CURRENT_DESKTOP=KDE vlc'
+
+# switch to workspace
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+
+bindsym $mod+j exec $spawn_if_workspace_empty frf google-chrome
+bindsym $mod+l exec $spawn_if_workspace_empty fun google-chrome
+bindsym $mod+u exec $spawn_if_workspace_empty bet google-chrome
+bindsym $mod+y exec $spawn_if_workspace_empty buy $shop_sites
+bindsym $mod+Escape exec $spawn_if_workspace_empty aha google-chrome
+
+bindsym $mod+h exec $spawn_if_workspace_empty wrf google-chrome
+bindsym $mod+n exec $spawn_if_workspace_empty ter rxvt
+bindsym $mod+e exec $spawn_if_workspace_empty doc google-chrome
+bindsym $mod+i exec $spawn_if_workspace_empty txt emacs
+bindsym $mod+o exec $spawn_if_workspace_empty out google-chrome
+bindsym $mod+Return exec $spawn_if_workspace_empty sys $ksysguard
+
+bindsym $mod+k exec $spawn_if_workspace_empty pdf $okular
+bindsym $mod+m exec $spawn_if_workspace_empty vid $vlc
+bindsym $mod+comma exec $spawn_if_workspace_empty file $dolphin
+bindsym $mod+period workspace art
+bindsym $mod+slash exec $spawn_if_workspace_empty msg $mail_sites
+
+# move to workspace
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10
+
+bindsym $mod+Shift+j move container to workspace frf
+bindsym $mod+Shift+l move container to workspace fun
+bindsym $mod+Shift+u move container to workspace bet
+bindsym $mod+Shift+y move container to workspace buy
+bindsym $mod+Shift+Escape move container to workspace aha
+
+bindsym $mod+Shift+h move container to workspace wrf
+bindsym $mod+Shift+n move container to workspace ter
+bindsym $mod+Shift+e move container to workspace doc
+bindsym $mod+Shift+i move container to workspace txt
+bindsym $mod+Shift+o move container to workspace out
+bindsym $mod+Shift+Return move container to workspace sys
+
+bindsym $mod+Shift+k move container to workspace pdf
+bindsym $mod+Shift+m move container to workspace vid
+bindsym $mod+Shift+comma move container to workspace file
+bindsym $mod+Shift+period move container to workspace workspace art
+bindsym $mod+Shift+slash move container to workspace msg
+
+
+# put work workspaces on appropriate outputs
+# bindsym $mod+F5 workspace pri; move workspace to output $screen0; workspace out; move workspace to output $screen6; workspace ter; move workspace to output $screen2; workspace txt; move workspace to output $screen1
+
+# flipped work outputs
+# bindsym $mod+Shift+F5 workspace pri; move workspace to output $screen2; workspace out; move workspace to output $screen1; workspace ter; move workspace to output $screen0; workspace txt; move workspace to output $screen3
+
+# flop workspaces vertically between screens
+# bindsym $mod+d exec /home/henry/.i3/bin/flipper.py
+# bindsym $mod+Shift+D exec /home/henry/.i3/bin/flipper.py --single-column
+
+
+###### i3 COMMANDS ######
+
+set $mode_system System (i)3 restart, (l)ock, (L)ock + Suspend, log(o)ut, (s)uspend, (r)eboot, (p)oweroff
+mode "$mode_system" {
+  # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+  bindsym i restart, mode "default"
+  bindsym l exec --no-startup-id i3lock -c000000, mode "default"
+  # lock and suspend
+  bindsym Shift+L exec --no-startup-id i3lock -c000000 && sudo pm-suspend, mode "default"
+  bindsym o exit, mode "default"
+  bindsym s exec --no-startup-id sudo pm-suspend, mode "default"
+  bindsym r exec --no-startup-id sudo shutdown -r now, mode "default"
+  bindsym p exec --no-startup-id sudo shutdown -h now, mode "default"
+
+  # back to normal: Enter or Escape
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+bindsym $mod+Control+Tab mode "$mode_system"
+
+
+set $keyboardMode "keyboard c=col u=us"
+bindsym $mod+minus mode $keyboardMode
+mode $keyboardMode {
+  bindsym c exec "setxkbmap -layout us -variant colemak", mode "default"
+  bindsym u exec "setxkbmap -layout us", mode "default"
+
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+exec --no-startup-id "setxkbmap -layout us -variant colemak"
+
+###### i3 SETTINGS ######
+
+# set color variables
+set $red #8f000e
+set $drd #580e16
+set $org #955f09
+set $dog #57390a
+set $blu #2f4b60
+set $dbl #283a48
+set $blk #242424
+set $dbk #191919
+set $gry #2d2d2d
+set $wht #F2F0EC
+
+# class                   border  background  text  indicator
+client.focused            $red    $red        $wht  $drd
+client.focused_inactive   $blu    $blu        $wht  $blu
+client.unfocused          $gry    $gry        $wht  $gry
+client.urgent             $org    $org        $gry  $org
+
+# wallpaper
+exec --no-startup-id xsetroot -solid "$gry"
+
+font pango: DejaVu Sans 8
+
+###### i3bar settings ######
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+
+
+bar {
+    output $screen0
+    output $screen2
+    tray_output $screen2
+    position top
+    status_command i3status
+    font pango:DejaVu Sans 10
+
+    colors {
+      background          $gry
+      statusline          $wht
+      separator           $wht
+      
+      # class             border  background  text
+      focused_workspace   $drd    $red        $wht
+      active_workspace    $dbl    $blu        $wht
+      inactive_workspace  $dbk    $blk        $wht
+      urgent_workspace    $dog    $org        $wht
+    }
+}
+
+bar {
+    output $screen1
+    output $screen2
+    position bottom
+    status_command i3status
+
+    colors {
+      background          $gry
+      statusline          $wht
+      separator           $wht
+      
+      # class             border  background  text
+      focused_workspace   $drd    $red        $wht
+      active_workspace    $dbl    $blu        $wht
+      inactive_workspace  $dbk    $blk        $wht
+      urgent_workspace    $dog    $org        $wht
+    }
+}
+
