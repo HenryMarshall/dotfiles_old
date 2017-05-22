@@ -1,0 +1,15 @@
+# AVA
+
+snippet avr "require ava" b!
+const test = require("ava")
+endsnippet
+
+snippet avi "import ava" b!
+import test from "ava"
+endsnippet
+
+snippet test "ava test" b!
+test("${1:title}", t => {
+  $0
+})
+endsnippet

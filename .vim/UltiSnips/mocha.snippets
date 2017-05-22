@@ -1,0 +1,65 @@
+# Mocha
+
+snippet des "mocha describe" b!
+describe("$1", function() {
+  $0
+})
+endsnippet
+
+snippet be "mocha before" b!
+before(function() {
+  $0
+})
+endsnippet
+
+snippet bee "mocha beforeEach" b!
+beforeEach(function() {
+  $0
+})
+endsnippet
+
+snippet af "mocha after" b!
+after(function() {
+  $0
+})
+endsnippet
+
+snippet afe "mocha afterEach" b!
+afterEach(function() {
+  $0
+})
+endsnippet
+
+snippet it "mocha it" b!
+it("$1", function() {
+  $0
+})
+endsnippet
+
+
+# Chai
+
+snippet chr "require chai.expect" b!
+const expect = require("chai").expect$0
+endsnippet
+
+snippet chi "import { expect }" b!
+import { expect } from "chai"
+endsnippet
+
+snippet chl "disable eslint chai issue" b!
+/* eslint-disable no-unused-expressions, max-len */
+endsnippet
+
+snippet ex "chai expect" b!
+expect(${1:actual}).to.${3:equal}(${2:expected})$0
+endsnippet
+
+snippet exn "chai expect not" b!
+expect(${1:actual}).not.to.${3:equal}(${2:expected})$0
+endsnippet
+
+snippet ext "chai expect to be true" b!
+expect(${1:actual}).to.be.${2:true}
+endsnippet
+
