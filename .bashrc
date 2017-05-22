@@ -52,8 +52,12 @@ source ~/bin/up.sh
 GIT_PROMPT_START_USER="\n\e[32m\]\u@\h \e[33m\]\w\\e[0m\]"
 GIT_PROMPT_END="\n\$ "
 export PS1="$GIT_PROMPT_START_USER$GIT_PROMPT_END"
-GIT_PROMPT_ONLY_IN_REPO=1
-source ~/bin/gitprompt.sh
+
+GIT_PROMPT_PATH="$HOME/.bash-git-prompt/gitprompt.sh"
+if [ -f $GIT_PROMPT_PATH ]; then
+  GIT_PROMPT_ONLY_IN_REPO=1
+  source $GIT_PROMPT_PATH
+fi
 
 
 ##### SENSIBLE DEFAULTS #####
