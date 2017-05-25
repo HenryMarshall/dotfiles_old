@@ -44,7 +44,7 @@ module.exports = {
       "varsIgnorePattern": "React",
       "args": "none"
     }],
-    "indent": ["error", 2, { "SwitchCase": 1 }],
+    "indent": ["error", 2, { "SwitchCase": 0 }],
     "no-console": 0,
     // `checkLoops: false` lets you set `while(true)`
     "no-constant-condition": ["error", { "checkLoops": false }],
