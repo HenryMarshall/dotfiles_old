@@ -74,4 +74,6 @@ augroup filetype_html
 augroup END
 
 " Set location for swapfiles
-:set directory=$HOME/.vim/swapfiles
+set directory=$HOME/.vim/swap//
+set backupdir=$HOME/.vim/backup//
+set undodir=$HOME/.vim/undo//
