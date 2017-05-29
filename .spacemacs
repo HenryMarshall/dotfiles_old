@@ -330,6 +330,7 @@ you should place your code here."
   (setq js2-mode-show-parse-errors nil)
   (setq js2-mode-show-strict-warnings nil)
 
+  (setq cider-lein-parameters "repl :headless :host localhost")
   ;; (sp-pair "{" :nil :post-handlers '(("| " "SPC")))
   )
 
