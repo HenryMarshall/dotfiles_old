@@ -70,6 +70,7 @@ alias ghhm='git push; git push heroku; heroku run rake db:migrate'
 alias pg='ping -c3 www.google.com'
 alias ffpm='firefox --new-instance --ProfileManager'
 alias serve='python -m SimpleHTTPServer'
+alias serve3='python -m http.server'
 alias exip='curl ifconfig.me'
 alias grepf='grep -iIrn'
 # The KDE network manager (handles vpn)
